@@ -18,11 +18,19 @@ class Node {
             childs.resize(size);
         }
 
-        /**
-         * An alternative is to create two different nodes (Internal and Leaf) that inherite from Node 
-         * an implement this function
-         */
-        //virtual bool isLeaf() = 0;
+        bool search(int k){
+            int i =0;
+            while(i < size && k > keys[i]){
+                i++;
+            }
+            if(keys[i] == k){
+                return this;
+            }
+            if(leaf==true){
+                return NULL;
+            }
+            return childs[i]->search(k);
+        }
 
     friend class BTree; 
 };
