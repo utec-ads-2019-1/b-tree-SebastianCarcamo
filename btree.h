@@ -12,14 +12,14 @@ class BTree {
     public:
         BTree(unsigned int degree) : degree(degree), root(nullptr) {};
 
-        bool search(int k) { 
+        bool search(T k) { 
             if(root == nullptr){
                 return false;
             }
             return root->search(k);
         } 
 
-        bool insert(int k) {
+        bool insert(T k) {
             if (root == nullptr){
                 root = new Node<T>(degree);
                 root-> keys[0] = k;
@@ -47,7 +47,7 @@ class BTree {
         }
 
         void print() {
-            
+            root->printN();
         }
 
         ~BTree();

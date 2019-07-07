@@ -11,12 +11,13 @@ class Node {
     vector<unsigned int> keys;
     vector<Node<T>*> childs;
     bool isLeaf;
-    unsigned int currSize = 0;
+    int currSize;
 
     public: 
         Node(unsigned int size, bool isLeaf = true) : size(size), isLeaf(isLeaf) {
             keys.resize(2*size - 1);
             childs.resize(2*size);
+            currSize = 0;
         }
 
         bool search(int k){
@@ -55,8 +56,8 @@ class Node {
             }
         }
 
-        void splitTree(int i, Node* nodo){
-            Node* NN = new Node<T>(nodo->size,nodo->isLeaf);
+        void splitTree(int i, Node<T>* nodo){
+            Node<T>* NN = new Node<T>(nodo->size,nodo->isLeaf);
             NN->currSize = size-1;
 
             for(int j = 0; j <size-1;j++){
@@ -80,6 +81,19 @@ class Node {
             keys[i] = nodo->keys[size-1];
 
             size+=1;
+        }
+
+        void printN(){
+            int i;
+            for(i = 0;i<currSize;i++){
+                if(isLeaf == false){
+                    childs[i]->printN();
+                }
+                std::cout<< " " << keys[i];
+            }
+            if(isLeaf == false){
+                childs[i]->printN();
+            }
         }
 
     friend class BTree; 
