@@ -19,8 +19,27 @@ class BTree {
             return root->search(k);
         } 
 
-        bool insert(int k, T data) {
-            // TODO
+        bool insert(int k) {
+            if (root == nullptr){
+                root = new Node<T>(degree);
+                root-> keys[0] = k;
+                root->currSize = 1;
+            }else{
+                if(root->currSize == 2*degree-1){
+                    Node<T>* n = new Node<T>(degree,false);
+                    n->childs[0] = root;
+                    n->splitTree(0,root);
+                    int i = 0;
+                    if(n->keys[0] < k){
+                        i++;
+                    }
+                    n->childs[i]->insertKeyNoConflict(k);
+                    root = n;
+                }else{
+                    root->insertKeyNoConflict(k);
+                }
+            }
+
         }
 
         bool remove(int k) {
@@ -28,7 +47,7 @@ class BTree {
         }
 
         void print() {
-            // TODO
+            
         }
 
         ~BTree();
